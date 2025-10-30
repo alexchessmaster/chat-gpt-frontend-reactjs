@@ -152,6 +152,12 @@ function App() {
   };
 
   function formatMessageContent(content) {
+    if(content.startsWith('```html')){
+      return content.substring(8, content.length - 4);
+    }
+    else{
+      return content;
+    }
     const sections = content.split(/(```[\s\S]*?```|`[\s\S]*?`)/g);
     return sections
       .map((section) => {
@@ -163,7 +169,8 @@ function App() {
           const code = section.substring(1, section.length - 1);
           return `<code class="inline-code">${code}</code>`;
         } else {
-          return section.replace(/\n/g, "<br>");
+          return section;
+          // return section.replace(/\n/g, "<br>");
         }
       })
       .join("");
@@ -229,7 +236,7 @@ function App() {
   return (
     <div className="App">
       <div className="headline">
-        <h1>⚡ Penrunner ⚡</h1>
+        {/* <h1>⚡ Penrunner ⚡</h1> */}
       </div>
       {isLoggedIn ? (
         <div className="chat-container">
